@@ -1,15 +1,15 @@
-package acm
+package salary_manager
 
-type acmRange struct {
+type data struct {
 	StartRange string 
 	EndRange   string 
 	Payment    float64    
 }
 
-var payments = make(map[string][]acmRange)
+var payments = make(map[string][]data)
 
-func rangePayments(key string) []acmRange {
-	payments["Week"] = []acmRange{
+func rangePayments(key string) []data {
+	payments["Week"] = []data{
 		{
 			StartRange: "00:01",
 			EndRange:   "09:00",
@@ -26,7 +26,7 @@ func rangePayments(key string) []acmRange {
 			Payment:    20.0,
 		},
 	}
-	payments["Weekend"] = []acmRange{
+	payments["Weekend"] = []data{
 		{
 			StartRange: "00:01",
 			EndRange:   "09:00",

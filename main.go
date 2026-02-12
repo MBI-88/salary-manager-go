@@ -1,22 +1,21 @@
 package main
 
 import (
-	"acm-payments/acm"
 	"flag"
 	"fmt"
+	sm "salary_manager_go/internal"
 )
 
 
 
 func main() {
 	flag.Parse()
-	result := flag.Arg(0)
-	amcC := acm.NewAcmCompany()
-	data := amcC.LoadFile(result)
-	doPayments := amcC.ProcessData(data)
+	args := flag.Arg(0)
+	manager := sm.NewSalaryManager()
+	result := manager.ProcessData(manager.LoadFile(args))
 
-	for key,val := range doPayments {
-		fmt.Printf("Name %s total to earn %f$\n", key,val)
+	for key,val := range result {
+		fmt.Printf("Name %s total to earn %0.2f$\n", key, val)
 	}
 	
 }

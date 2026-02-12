@@ -1,12 +1,12 @@
 package tests
 
 import (
-	"acm-payments/acm"
 	"testing"
+	sm "salary_manager_go/internal"
 )
 
 func TestProcessData(t *testing.T) {
-	acmTest := acm.NewAcmCompany()
+	acmTest := sm.NewSalaryManager()
 	test := make(map[string]int)
 	sample := []string{
 		"JOSE=MO08:00-19:00",
@@ -14,15 +14,15 @@ func TestProcessData(t *testing.T) {
 		"ANA=SA09:00-13:00,MO08:10-16:00",
 	}
 
-	test["JOSE"] = 179
-	test["JUAN"] = 179
-	test ["ANA"] = 209
+	test["JOSE"] = 179 // 25 + 135 + 20
+	test["JUAN"] = 179 // 75 + 105 = 180
+	test["ANA"] = 209 // 60 + 105
 
 	restul := acmTest.ProcessData(sample)
 
-	for key, _ := range restul {
+	for key := range restul {
 		if int(restul[key]) != test[key] {
-			t.Errorf("Name %s resutl => %d and test => %d\n",key, int(restul[key]), test[key])
+			t.Errorf("Name %s resutl => %d and test => %d\n", key, int(restul[key]), test[key])
 		}
 	}
 
