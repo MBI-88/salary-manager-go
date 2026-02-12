@@ -46,8 +46,8 @@ func (sm *salaryManager) operation(payrange []data, name string, start, end time
 						
 					} else if end.Compare(sm.formater(payrange[x].EndRange)) > 0 {
 						StartRange := sm.formater(payrange[x].StartRange)
-						acmkEnd := sm.formater(payrange[x].EndRange)
-						hours := acmkEnd.Sub(StartRange).Hours()
+						EndRange := sm.formater(payrange[x].EndRange)
+						hours := EndRange.Sub(StartRange).Hours()
 						sm.toPay[name] += hours * payrange[x].Payment
 					}
 				}
