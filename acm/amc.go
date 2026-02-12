@@ -11,6 +11,11 @@ type acmCompany struct {
 	toPay map[string]float64
 }
 
+// AcmCompany builder
+func NewAcmCompany() acmBuilder {
+	return &acmCompany{}
+}
+
 func (ac acmCompany) operation(payrange []acmRange, name string, start, end time.Time) {
 	for i := 0; i < len(payrange); i++ {
 		if start.Compare(ac.formater(payrange[i].EndRange)) > 0 {
@@ -105,7 +110,4 @@ func (ac acmCompany) LoadFile(path string) []string {
 	return array
 }
 
-// AcmCompany builder
-func NewAcmCompany() acmBuilder {
-	return &acmCompany{}
-}
+
