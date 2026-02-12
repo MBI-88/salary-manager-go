@@ -1,4 +1,4 @@
-# ioeAmcTest
+# Salary Manager
 Salary Manager
 ## Overview
 
