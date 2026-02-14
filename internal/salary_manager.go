@@ -25,30 +25,23 @@ func (sm *salaryManager) operation(payrange []data, name string, start, end time
 				(start.Compare(sm.formater(payrange[i].EndRange)) < 1) &&
 				(end.Compare(sm.formater(payrange[i].EndRange)) < 1) {
 
-				hours := end.Sub(start).Hours()
-				sm.toPay[name] += hours * payrange[i].Payment
+				sm.toPay[name] += payrange[i].Payment * end.Sub(start).Hours()
 
 			} else if (start.Compare(sm.formater(payrange[i].StartRange)) > -1) &&
 				(start.Compare(sm.formater(payrange[i].EndRange)) < 1) &&
 				(end.Compare(sm.formater(payrange[i].EndRange)) > 0) {
 
-				EndRange := sm.formater(payrange[i].EndRange)
-				hours := EndRange.Sub(start).Hours()
-				sm.toPay[name] += hours * payrange[i].Payment
+				sm.toPay[name] += payrange[i].Payment * sm.formater(payrange[i].EndRange).Sub(start).Hours()
 
 				for x := i + 1; x < len(payrange); x++ {
 					if (end.Compare(sm.formater(payrange[x].StartRange)) > -1) &&
 						(end.Compare(sm.formater(payrange[x].EndRange)) < 1) {
 
-						StartRange := sm.formater(payrange[x].StartRange)
-						hours := end.Sub(StartRange).Hours()
-						sm.toPay[name] += hours * payrange[x].Payment
-						
+						sm.toPay[name] += payrange[x].Payment * end.Sub(sm.formater(payrange[x].StartRange)).Hours()
+
 					} else if end.Compare(sm.formater(payrange[x].EndRange)) > 0 {
-						StartRange := sm.formater(payrange[x].StartRange)
-						EndRange := sm.formater(payrange[x].EndRange)
-						hours := EndRange.Sub(StartRange).Hours()
-						sm.toPay[name] += hours * payrange[x].Payment
+
+						sm.toPay[name] += payrange[x].Payment * sm.formater(payrange[x].EndRange).Sub(sm.formater(payrange[x].StartRange)).Hours()
 					}
 				}
 
